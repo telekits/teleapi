@@ -1,0 +1,25 @@
+{
+  "name": "teleapi",
+  "version": "1.0.0",
+  "description": "Telegram Bot API wrapper",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.58.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nof1000/teleapi.git"
+  }
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "telegram",
+    "bot",
+    "api",
+    "wrapper",
+    "telebot"
+  ],
+  "author": "Denis Maslennikov aka Nof1000",
+  "license": "MIT"
+}
