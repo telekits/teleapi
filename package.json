@@ -9,7 +9,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/nof1000/teleapi.git"
-  }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
