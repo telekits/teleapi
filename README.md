@@ -30,7 +30,7 @@ var params = {
 **Callback is Function**
 ```javascript
 function callback(error, result) {
-// if "error" is true to then the result is error object.
+// if "error" is true to then the "result" is error object.
 }
 ```
 

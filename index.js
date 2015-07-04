@@ -8,7 +8,7 @@ var request = require('request');
 **/
 var API = function(token) {
     this._uApi = 'https://api.telegram.org/bot';
-    this.token = token;
+    this.token = token || "";
 }
 
 /*
@@ -22,6 +22,7 @@ var API = function(token) {
  *  @return {Object#API} this
 **/
 API.prototype.method = function(method, params, callback) {
+    if (this.token == "") throw "Token is missing!";
     var isPost = ((typeof params != 'function') ? true : false),
         isFormData = ((isPost) ? this._isFormData(params) : false),
         _callback = ((isPost) ? callback : params);
