@@ -67,7 +67,7 @@ API.prototype._isFormData = function(obj) {
     'sendMessage','forwardMessage','sendPhoto',
     'sendAudio','sendDocument','sendSticker',
     'sendVideo','sendLocation','sendChatAction',
-    'getUserProfilePhotos'].forEach(function(item){
+    'getUserProfilePhotos', 'getFile'].forEach(function(item){
         obj.prototype[item] = (function(params, callback){
             var isPost = ((typeof params != 'function') ? true : false),
                 _params = (isPost ? params : null),
