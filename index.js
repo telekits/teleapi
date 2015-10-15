@@ -1,26 +1,28 @@
 var request = require('request');
 
-/*  @class
+/**
+ *  @class
  *  Telegram Bot API wrapper
  *
  *  @param {String} Bot Auth Token
  *  @constructor
-**/
+ */
 var API = function(token) {
     this._uApi = 'https://api.telegram.org/bot';
+    this._uFile = 'https://api.telegram.org/file/bot';
     this.token = token || "";
 }
 
-/*
+/**
  *  Method for sending GET and POST requests on Telegram Bot API
  *
  *  @param {String} method name for calling from API
  *  @param {Object} POST Data
  *  @param {Function} callback:
-        @param {Boolean} if there are any errors becomes true
-        @param {Object} JSON Object from request
+ *      @param {Boolean} if there are any errors becomes true
+ *      @param {Object} JSON Object from request
  *  @return {Object#API} this
-**/
+ */
 API.prototype.method = function(method, params, callback) {
     if (this.token == "") throw "Token is missing!";
     var isPost = ((typeof params != 'function') ? true : false),
@@ -46,12 +48,22 @@ API.prototype.method = function(method, params, callback) {
     return this;
 };
 
-/*  @private
+/**
+ *  Get file from https://api.telegram.org/file/bot<token>/<file_path>
+ *
+ *  @param {String} Path To File
+ */
+API.prototype.file = function(path) { 
+    return request.get(this._uFile + this.token + '/' + path);
+};
+
+/**
+ *  @private
  *  Verification of the existence of objects in the object
  *
  *  @param {Object} the object for verification
  *  @return {Boolean} if there is objects within the object to return true
-**/
+ */
 API.prototype._isFormData = function(obj) {
     for (var key in obj) {
         if (obj.hasOwnProperty(key)) {
@@ -63,11 +75,23 @@ API.prototype._isFormData = function(obj) {
 
 // Drops a wrapper for API methods
 (function(obj){
-    ['getMe','getUpdates','setWebhook',
-    'sendMessage','forwardMessage','sendPhoto',
-    'sendAudio','sendDocument','sendSticker',
-    'sendVideo','sendLocation','sendChatAction',
-    'getUserProfilePhotos', 'getFile'].forEach(function(item){
+    [
+        'getMe',
+        'sendMessage',
+        'forwardMessage',
+        'sendPhoto',
+        'sendAudio',
+        'sendDocument',
+        'sendSticker',
+        'sendVideo',
+        'sendVoice',
+        'sendLocation',
+        'sendChatAction',
+        'getUserProfilePhotos',
+        'getUpdates',
+        'setWebhook',
+        'getFile'
+    ].forEach(function(item){
         obj.prototype[item] = (function(params, callback){
             var isPost = ((typeof params != 'function') ? true : false),
                 _params = (isPost ? params : null),

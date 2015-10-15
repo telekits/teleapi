@@ -47,6 +47,23 @@ api.sendMessage({
 }, callback);
 ```
 
+## Download Files
+```javascript
+var api = new (require('teleapi'))('Bot Auth Token');
+// Get File Path
+api.getFile({
+  "file_id": "BQADAgADhwEAAryGFQABzzmo9UdRnXkC",
+}, function(error, result) {
+  ...
+  // TeleAPI#file returned "request" object, see link down.
+  api.file(result.file_path)
+     .pipe(fs.createWriteStream('image.png'));
+  ...
+});
+```
+> [Request Streaming](https://github.com/request/request#streaming)
+
+
 ## Send InputFile
 > photo, audio, document, sticker, video
 
