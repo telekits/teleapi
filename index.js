@@ -90,7 +90,8 @@ API.prototype._isFormData = function(obj) {
         'getUserProfilePhotos',
         'getUpdates',
         'setWebhook',
-        'getFile'
+        'getFile',
+        'answerInlineQuery'
     ].forEach(function(item){
         obj.prototype[item] = (function(params, callback){
             var isPost = ((typeof params != 'function') ? true : false),
