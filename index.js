@@ -1,15 +1,15 @@
-var request = require('request');
+const request = require('request');
 
 /**
+ *  @constructor
  *  @class
  *  Telegram Bot API wrapper
  *
  *  @param {String} Bot Auth Token
- *  @constructor
  */
-var API = function(token) {
-    this._uApi = 'https://api.telegram.org/bot';
+const API = function(token) {
     this._uFile = 'https://api.telegram.org/file/bot';
+    this._uApi = 'https://api.telegram.org/bot';
     this.token = token || "";
 }
 
@@ -41,7 +41,7 @@ API.prototype.method = function(method, params, callback) {
         }
         if (_callback) _callback(true, {
             "error": err || true,
-            "code": body.error_code || res.statusCode || null, 
+            "code": body.error_code || res.statusCode || null,
             "info": body.description || null
         });
     });
@@ -53,7 +53,7 @@ API.prototype.method = function(method, params, callback) {
  *
  *  @param {String} Path To File
  */
-API.prototype.file = function(path) { 
+API.prototype.file = function(path) {
     return request.get(this._uFile + this.token + '/' + path);
 };
 
@@ -86,11 +86,19 @@ API.prototype._isFormData = function(obj) {
         'sendVideo',
         'sendVoice',
         'sendLocation',
+        'sendVenue',
+        'sendContact',
         'sendChatAction',
         'getUserProfilePhotos',
         'getUpdates',
         'setWebhook',
         'getFile',
+        'kickChatMember',
+        'answerCallbackQuery',
+        'unbanChatMember',
+        'editMessageText',
+        'editMessageCaption',
+        'editMessageReplyMarkup',
         'answerInlineQuery'
     ].forEach(function(item){
         obj.prototype[item] = (function(params, callback){
