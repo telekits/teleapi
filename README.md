@@ -1,10 +1,15 @@
 # TeleAPI
 > The useful library to simplify your work with Telegram Bot Api
 
+> Bot API 2.1
+
 ```javascript
-const teleapi = (require('teleapi'))(
-    'Bot Auth Token'
-);
+const teleapi = require('teleapi');
+const api = teleapi('Bot Auth Token');
+
+// or
+
+const api = require('teleapi')('Bot Auth Token');
 
 // ...and send requests...
 ```
@@ -23,9 +28,7 @@ $ npm install teleapi
 
 
 ```javascript
-const teleapi = (require('teleapi'))(
-    'Bot Auth Token'
-);
+const api = require('teleapi')('Bot Auth Token');
 
 api.<methodName>(params, callback);
 ```
@@ -47,9 +50,7 @@ function callback(error, result) {
 
 ## Send request
 ```javascript
-const teleapi = (require('teleapi'))(
-    'Bot Auth Token'
-);
+const api = require('teleapi')('Bot Auth Token');
 
 // send request
 api.getMe(callback);
@@ -62,9 +63,7 @@ api.sendMessage({
 
 ## Download Files
 ```javascript
-const teleapi = (require('teleapi'))(
-    'Bot Auth Token'
-);
+const api = require('teleapi')('Bot Auth Token');
 
 // Get File Path
 api.getFile({
@@ -84,9 +83,7 @@ api.getFile({
 > photo, audio, document, sticker, video, etc...
 
 ```javascript
-const teleapi = (require('teleapi'))(
-    'Bot Auth Token'
-);
+const api = require('teleapi')('Bot Auth Token');
 
 // Support Stream
 const fs = require('fs');

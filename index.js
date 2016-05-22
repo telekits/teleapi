@@ -1,4 +1,4 @@
-const request = require('request');
+var request = require('request');
 
 /**
  *  @constructor
@@ -7,7 +7,7 @@ const request = require('request');
  *
  *  @param {String} Bot Auth Token
  */
-const API = function(token) {
+var API = function(token) {
     this._uFile = 'https://api.telegram.org/file/bot';
     this._uApi = 'https://api.telegram.org/bot';
     this.token = token || "";
@@ -76,6 +76,8 @@ API.prototype._isFormData = function(obj) {
 // Drops a wrapper for API methods
 (function(obj){
     [
+        'getUpdates',
+        'setWebhook',
         'getMe',
         'sendMessage',
         'forwardMessage',
@@ -90,12 +92,15 @@ API.prototype._isFormData = function(obj) {
         'sendContact',
         'sendChatAction',
         'getUserProfilePhotos',
-        'getUpdates',
-        'setWebhook',
         'getFile',
         'kickChatMember',
-        'answerCallbackQuery',
+        'leaveChat',
         'unbanChatMember',
+        'getChat',
+        'getChatAdministrators',
+        'getChatMembersCount',
+        'getChatMember',
+        'answerCallbackQuery',
         'editMessageText',
         'editMessageCaption',
         'editMessageReplyMarkup',
@@ -112,4 +117,7 @@ API.prototype._isFormData = function(obj) {
     });
 })(API);
 
-module.exports = API;
+module.exports = function(token) {
+    if (token) return new API(token);
+    return API;
+};

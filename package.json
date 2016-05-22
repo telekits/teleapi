@@ -1,6 +1,6 @@
 {
   "name": "teleapi",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "The useful library to simplify your work with Telegram Bot Api",
   "main": "index.js",
   "dependencies": {
