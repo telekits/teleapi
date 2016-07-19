@@ -11,9 +11,6 @@
     "type": "git",
     "url": "git+https://github.com/nof1000/teleapi.git"
   },
-  "engines": {
-    "node": ">=6"
-  },
   "keywords": [
     "telegram",
     "wrapper",
