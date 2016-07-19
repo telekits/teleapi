@@ -1,0 +1,33 @@
+{
+    "version": 2.1,
+    "methods": [
+        "answerCallbackQuery",
+        "answerInlineQuery",
+        "editMessageCaption",
+        "editMessageReplyMarkup",
+        "editMessageText",
+        "forwardMessage",
+        "getChat",
+        "getChatAdministrators",
+        "getChatMember",
+        "getChatMembersCount",
+        "getMe",
+        "getUpdates",
+        "getUserProfilePhotos",
+        "kickChatMember",
+        "leaveChat",
+        "sendAudio",
+        "sendChatAction",
+        "sendContact",
+        "sendDocument",
+        "sendLocation",
+        "sendMessage",
+        "sendPhoto",
+        "sendSticker",
+        "sendVenue",
+        "sendVideo",
+        "sendVoice",
+        "setWebhook",
+        "unbanChatMember"
+    ]
+}

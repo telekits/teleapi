@@ -1,17 +1,18 @@
 {
   "name": "teleapi",
-  "version": "1.2.1",
-  "description": "The useful library to simplify your work with Telegram Bot Api",
-  "main": "index.js",
+  "version": "2.2.1",
+  "description": "The useful library to simplify your work with Telegram Bot API",
   "dependencies": {
-    "request": "^2.58.0"
+    "file-type": "^3.8.0",
+    "form-data": "^1.0.0-rc4",
+    "got": "^6.3.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nof1000/teleapi.git"
+    "url": "git+https://github.com/nof1000/teleapi.git"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "engines": {
+    "node": ">=6"
   },
   "keywords": [
     "telegram",
@@ -23,5 +24,12 @@
     "api"
   ],
   "author": "Denis Maslennikov <mrdenniska@gmail.com> (http://nofach.com/)",
-  "license": "MIT"
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nof1000/teleapi/issues"
+  },
+  "homepage": "https://github.com/nof1000/teleapi#readme",
+  "devDependencies": {
+    "debug": "^2.2.0"
+  }
 }
