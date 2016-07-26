@@ -1,3 +1,10 @@
+/**
+ * The useful library to simplify your work with Telegram Bot API
+ *
+ * @author Denis Maslennikov <mrdenniska@gmail.com> (http://nofach.com/)
+ * @license MIT
+ */
+
 const FormData = require('form-data');
 const FileType = require('file-type');
 const stream = require('stream');
@@ -6,18 +13,16 @@ const got = require('got');
 
 /**
  * Variables
- *
  * @private
  */
 const API_FILE = 'https://api.telegram.org/file/bot';
 const API_URL = 'https://api.telegram.org/bot';
 
-// Available API Methods
+/** Available API Methods */
 const api = require('./api.json');
 
 /**
  * Methods
- *
  * @private
  */
 
@@ -26,7 +31,6 @@ const api = require('./api.json');
  *
  * @param  {Object} obj
  * @return {Boolean}
- *
  * @private
  */
 function isFormData(obj) {
@@ -45,7 +49,6 @@ function isFormData(obj) {
  *
  * @param  {Object} obj
  * @return {Object|form-data}
- *
  * @private
  */
 function normalize(obj) {
@@ -104,7 +107,6 @@ function normalize(obj) {
 
 /**
  * This class is a wrapper over telegram api
- *
  * @public
  */
 class API {
@@ -129,7 +131,6 @@ class API {
      * @param {Object} params - body in request
      * @param {Function} callback - (error, response)=>{...}
      * @return {Promise} Promise
-     *
      * @private
      */
     method(method, params = {}, callback = null) {
@@ -166,7 +167,6 @@ class API {
      * The generate bound methods from String Array
      *
      * @param {Array} list - string array of methods
-     *
      * @private
      */
     generator(list) {
@@ -183,7 +183,6 @@ class API {
      *
      * @param {String} id - file id
      * @return {Stream}
-     *
      * @public
      */
     getFile(id) {
