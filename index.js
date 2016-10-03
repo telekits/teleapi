@@ -1,10 +1,14 @@
 /**
  * The useful library to simplify your work with Telegram Bot API
  *
- * @author Denis Maslennikov <mrdenniska@gmail.com> (http://nofach.com/)
+ * @author Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)
  * @license MIT
  */
 
+/**
+ * Dependencies
+ * @private
+ */
 const FormData = require('form-data');
 const FileType = require('file-type');
 const stream = require('stream');
@@ -18,7 +22,10 @@ const got = require('got');
 const API_FILE = 'https://api.telegram.org/file/bot';
 const API_URL = 'https://api.telegram.org/bot';
 
-/** Available API Methods */
+/**
+ * Available API Methods
+ * @private
+ */
 const api = require('./api.json');
 
 /**
@@ -110,8 +117,9 @@ function normalize(obj) {
  * @public
  */
 class API {
+
     /**
-     * Create a wrapper
+     * Create of the wrapper
      *
      * @param {String} token - Bot token
      */
@@ -164,7 +172,7 @@ class API {
     }
 
     /**
-     * The generate bound methods from String Array
+     * The generate bound methods from `String` Array
      *
      * @param {Array} list - string array of methods
      * @private

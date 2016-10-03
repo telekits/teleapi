@@ -1,6 +1,6 @@
 {
   "name": "teleapi",
-  "version": "2.2.1",
+  "version": "2.2.2",
   "description": "The useful library to simplify your work with Telegram Bot API",
   "dependencies": {
     "file-type": "^3.8.0",
@@ -20,7 +20,7 @@
     "bot",
     "api"
   ],
-  "author": "Denis Maslennikov <mrdenniska@gmail.com> (http://nofach.com/)",
+  "author": "Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nof1000/teleapi/issues"

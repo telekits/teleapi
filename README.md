@@ -1,17 +1,17 @@
 # TeleAPI
 > The useful library to simplify your work with Telegram Bot API
 
-> Bot API 2.1
+> Support Telegram Bot API 2.2 with Gaming Platform!
 
 ```javascript
 const teleapi = require('teleapi');
 const api = teleapi('Bot Auth Token');
 
-// or
+/** or */
 
 const api = require('teleapi')('Bot Auth Token');
 
-// ...and send requests...
+/** ...and send requests... */
 ```
 ### [Bot API manual](https://core.telegram.org/bots/api "Telegram Bot API")
 
@@ -35,7 +35,7 @@ api.methodName(params, callback);
 
 **`params` is an `Object`**
 ```javascript
-// example params for sendMessage
+/** example params for sendMessage */
 const params = {
   chat_id: 000000, // Unique identifier for the message recipient — User or GroupChat id
   text: 'hello!' // Text of the message to be sent
@@ -44,15 +44,15 @@ const params = {
 **`callback` is an `Function`**
 ```javascript
 function callback(error, result) {
-  // ...
+  /** ... */
 }
 ```
 **`methodName` returns a `Promise`**
 ```javascript
 api.methodName(params).then(result => {
-  // ...
+  /** ... */
 }).catch(error => {
-  // ... 
+  /** ... */ 
 });
 ```
 
@@ -60,23 +60,22 @@ api.methodName(params).then(result => {
 ```javascript
 const api = require('teleapi')('Bot Auth Token');
 
-
 api.getMe(callback);
-// or
+/** or */
 api.getMe().then(result => {
-  // ...
+  /** ... */
 }).catch(error => {
-  // ...
+  /** ... */
 });
 
-// Example of Send Message
+/** Example of Send Message */
 api.sendMessage({
   chat_id: 000000, // chat id
   text: "Hello!"
 }).then(result => {
-  // ...
+  /** ... */
 }).catch(error => {
-  // ...
+  /** ... */
 });
 ```
 
@@ -85,7 +84,7 @@ api.sendMessage({
 const api = require('teleapi')('Bot Auth Token');
 const fs = require('fs');
 
-// returns Stream
+/** returns Stream */
 api.getFile('file_id').pipe(fs.createWriteStream('file.ext'));
 ```
 
@@ -95,14 +94,14 @@ api.getFile('file_id').pipe(fs.createWriteStream('file.ext'));
 ```javascript
 const api = require('teleapi')('Bot Auth Token');
 
-// Support Stream
+/** Support Stream */
 const fs = require('fs');
 const data = fs.createReadStream('myfile.ext');
 
-// Support Buffer
+/** Support Buffer */
 const data = new Buffer([1, 2, 3]);
 
-// Support String(file_id)
+/** Support String(file_id) */
 const data = "file_id";
 
 api.sendDocument({
@@ -110,7 +109,7 @@ api.sendDocument({
   document: data
 });
 
-// or
+/** or */
 
 api.sendDocument({
   chat_id: 000000, // chat id

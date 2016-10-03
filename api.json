@@ -1,5 +1,5 @@
 {
-    "version": 2.1,
+    "version": 2.2,
     "methods": [
         "answerCallbackQuery",
         "answerInlineQuery",
@@ -11,15 +11,18 @@
         "getChatAdministrators",
         "getChatMember",
         "getChatMembersCount",
+        "getGameHighScores",
         "getMe",
         "getUpdates",
         "getUserProfilePhotos",
+        "getWebhookInfo",
         "kickChatMember",
         "leaveChat",
         "sendAudio",
         "sendChatAction",
         "sendContact",
         "sendDocument",
+        "sendGame",
         "sendLocation",
         "sendMessage",
         "sendPhoto",
@@ -27,6 +30,7 @@
         "sendVenue",
         "sendVideo",
         "sendVoice",
+        "setGameScore",
         "setWebhook",
         "unbanChatMember"
     ]
