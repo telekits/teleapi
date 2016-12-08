@@ -1,5 +1,5 @@
 {
-    "version": 2.2,
+    "version": "2.3.1",
     "methods": [
         "answerCallbackQuery",
         "answerInlineQuery",
@@ -32,6 +32,7 @@
         "sendVoice",
         "setGameScore",
         "setWebhook",
+        "deleteWebhook",
         "unbanChatMember"
     ]
 }
