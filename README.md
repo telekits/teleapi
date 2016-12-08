@@ -1,7 +1,7 @@
 # TeleAPI
 > The useful library to simplify your work with Telegram Bot API
 
-> Supported of Telegram Bot API 2.2.1!
+> Supported of Telegram Bot API 2.3.1!
 
 ```javascript
 const teleapi = require('teleapi');
