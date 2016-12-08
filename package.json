@@ -1,6 +1,6 @@
 {
   "name": "teleapi",
-  "version": "2.2.2",
+  "version": "2.2.2.1",
   "description": "The useful library to simplify your work with Telegram Bot API",
   "dependencies": {
     "file-type": "^3.8.0",

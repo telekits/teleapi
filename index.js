@@ -198,6 +198,7 @@ class API {
     }
 }
 
+/** Exports */
 module.exports = (token) => {
     if (token) return new API(token);
     return API;
