@@ -2,31 +2,42 @@
   "name": "teleapi",
   "version": "2.3.1",
   "description": "The useful library to simplify your work with Telegram Bot API",
-  "dependencies": {
-    "file-type": "^3.8.0",
-    "form-data": "^1.0.0-rc4",
-    "got": "^6.3.0"
+  "main": "index.js",
+  "author": "Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)",
+  "license": "MIT",
+  "homepage": "https://telekits.org.js",
+  "scripts": {
+    "test": "eslint ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nof1000/teleapi.git"
   },
-  "keywords": [
-    "telegram",
-    "wrapper",
-    "network",
-    "helpful",
-    "useful",
-    "bot",
-    "api"
-  ],
-  "author": "Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/nof1000/teleapi/issues"
   },
-  "homepage": "https://github.com/nof1000/teleapi#readme",
+  "keywords": [
+    "framework",
+    "telegram",
+    "network",
+    "telekit",
+    "wrapper",
+    "helpful",
+    "useful",
+    "useful",
+    "tools",
+    "bot",
+    "api"
+  ],
+  "dependencies": {
+    "debug": "^2.6.0",
+    "file-type": "^3.8.0",
+    "form-data": "^1.0.0-rc4",
+    "got": "^6.3.0"
+  },
   "devDependencies": {
-    "debug": "^2.2.0"
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.0.1",
+    "eslint-plugin-import": "^2.2.0"
   }
 }

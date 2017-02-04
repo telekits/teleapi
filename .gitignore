@@ -1,2 +1,6 @@
+# folders
 node_modules
-npm-debug.log
+
+# files
+npm-debug.*
+yarn.lock
