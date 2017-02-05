@@ -5,10 +5,7 @@
  * @license MIT
  */
 
-/**
- * Dependencies
- * @private
- */
+/** Dependencies */
 const FormData = require('form-data');
 const FileType = require('file-type');
 const stream = require('stream');
@@ -26,7 +23,7 @@ const API_URL = 'https://api.telegram.org/bot';
  * Available API Methods
  * @private
  */
-const api = require('./api.json');
+const API_DEFAULT = require('./api.json');
 
 /**
  * Methods
@@ -35,97 +32,96 @@ const api = require('./api.json');
 
 /**
  * Checks whether an Object is multipart/form-data
+ * @private
  *
  * @param  {Object} obj
  * @return {Boolean}
- * @private
  */
 function isFormData(obj) {
-    for (let item in obj) {
-        if (obj.hasOwnProperty(item)) {
-            if (obj[item] instanceof stream.Stream) return true;
-            else if (Buffer.isBuffer(obj[item])) return true;
-        }
-    }
-
-    return false;
+    return Object.keys(obj).some((key) => {
+        if (obj[key] instanceof stream.Stream) return true;
+        if (Buffer.isBuffer(obj[key])) return true;
+        return false;
+    });
 }
 
 /**
  * Normalize Object to sending in body
+ * @private
  *
  * @param  {Object} obj
  * @return {Object|form-data}
- * @private
  */
 function normalize(obj) {
-    let isMultipart = isFormData(obj);
-    let content = { filename: '', value: '', mime: '' };
-    let result = isMultipart ? new FormData() : {};
+    const isMultipart = isFormData(obj);
+    const content = { filename: '', value: '', mime: '' };
+    const result = ((isMultipart) ? new FormData() : {});
     let file = null;
 
-    for (let item in obj) {
-        if (obj.hasOwnProperty(item)) {
-            if (isMultipart) {
-                if (obj[item].value) content.value = obj[item].value;
-                else content.value = obj[item];
+    Object.keys(obj).forEach((item) => {
+        if (isMultipart) {
+            if (obj[item].value) content.value = obj[item].value;
+            else content.value = obj[item];
 
-                content.filename = obj[item].filename || null;
-                content.mime = obj[item].mime || null;
+            content.filename = obj[item].filename || null;
+            content.mime = obj[item].mime || null;
 
-                if (content.value instanceof stream.Stream) {
-                    result.append(item, content.value, {
-                        contentType: content.mime,
-                        filename: content.filename
-                    });
-                    continue;
-                }
+            if (content.value instanceof stream.Stream) {
+                result.append(item, content.value, {
+                    contentType: content.mime,
+                    filename: content.filename,
+                });
 
-                if (Buffer.isBuffer(content.value)) {
-                    file = FileType(content.value);
-                    result.append(item, content.value, {
-                        contentType: content.mime || file.mime || 'application/octet-stream',
-                        filename: content.filename || `data-${(new Date()).getTime()}.${file.ext || ''}`
-                    });
-                    continue;
-                }
-
-                if (typeof(content.value) == 'object') {
-                    result.append(item, JSON.stringify(content.value), {
-                        contentType: 'application/json'
-                    });
-                    continue;
-                }
-
-                result.append(item, content.value);
-            } else {
-                if (typeof(obj[item]) == 'object') {
-                    result[item] = JSON.stringify(obj[item]);
-                    continue;
-                }
-
-                result[item] = obj[item];
+                return;
             }
+
+            if (Buffer.isBuffer(content.value)) {
+                file = FileType(content.value);
+                result.append(item, content.value, {
+                    contentType: content.mime || file.mime || 'application/octet-stream',
+                    filename: content.filename || `data-${Date.now()}.${file.ext || ''}`,
+                });
+
+                return;
+            }
+
+            if (typeof content.value === 'object') {
+                result.append(item, JSON.stringify(content.value), {
+                    contentType: 'application/json',
+                });
+
+                return;
+            }
+
+            result.append(item, content.value);
+        } else {
+            if (typeof obj[item] === 'object') {
+                result[item] = JSON.stringify(obj[item]);
+                return;
+            }
+
+            result[item] = obj[item];
         }
-    }
+    });
 
     return result;
 }
 
 /**
- * This class is a wrapper over telegram api
+ * Implementation
  * @public
  */
 class API {
-
     /**
-     * Create of the wrapper
+     * Create a new telekit
+     * @public
      *
-     * @param {String} token - Bot token
+     * @param  {String} token - Token of Tekegran Bot API
+     * @param  {Object} custom - Custom API
      */
-    constructor(token = '') {
-        this.token = token;
+    constructor(token = '', api = API_DEFAULT) {
         this.version = api.version;
+        this.token = token;
 
         debug(`version: ${api.version}`);
 
@@ -134,17 +130,17 @@ class API {
 
     /**
      * Send request to Telegram Bot API
-     *
-     * @param {String} method
-     * @param {Object} params - body in request
-     * @param {Function} callback - (error, response)=>{...}
-     * @return {Promise} Promise
      * @private
+     *
+     * @param  {String} method - method name
+     * @param  {Object} params - body in request
+     * @param  {Function} callback - (error, response)=>{...}
+     * @return {Promise}
      */
     method(method, params = {}, callback = null) {
         let options = {};
         let form = null;
-        let url = `${API_URL}${this.token}/${method}`;
+        const url = `${API_URL}${this.token}/${method}`;
 
         form = normalize(params);
         options = { body: form, json: true };
@@ -155,14 +151,16 @@ class API {
         }
 
         return new Promise((resolve, reject) => {
-            got(url, options).then(res => {
-                let err = (res.body.ok) ? null : new Error(res.body.description);
+            got(url, options).then((res) => {
+                const error = (res.body.ok) ? null : new Error(res.body.description);
 
-                debug('response: %o', res.body);
+                debug('response: %O', res.body.result);
 
-                if (callback) callback(err, res.body);
-                (err) ? reject(err) : resolve(res.body);
-            }).catch(error => {
+                if (callback) callback(error, res.body.result);
+
+                if (error) reject(error);
+                else resolve(res.body.result);
+            }).catch((error) => {
                 debug(`error ${error.message}`);
 
                 if (callback) callback(error, null);
@@ -178,20 +176,18 @@ class API {
      * @private
      */
     generator(list) {
-        list.forEach(item => {
+        list.forEach((item) => {
             debug(`generate ${item}`);
-            this[item] = (params, callback) => {
-                return this.method(item, params, callback);
-            }
+            this[item] = (params, callback) => this.method(item, params, callback);
         });
     }
 
     /**
-     * Get file from Telegram
-     *
-     * @param {String} id - file id
-     * @return {Stream}
+     * Get file from Telegram Bot API
      * @public
+     *
+     * @param  {String} id - file id
+     * @return {Stream}
      */
     getFile(id) {
         return got.stream(`${API_FILE + this.token}/${id}`);
@@ -199,7 +195,7 @@ class API {
 }
 
 /** Exports */
-module.exports = (token) => {
-    if (token) return new API(token);
+module.exports = (token, custom) => {
+    if (token) return new API(token, custom);
     return API;
-}
+};
