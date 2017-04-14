@@ -10,8 +10,18 @@
 const FormData = require('form-data');
 const FileType = require('file-type');
 const stream = require('stream');
-const debug = require('debug')('teleapi');
+const debug = require('debug');
 const got = require('got');
+
+/** Debug */
+debug.error = debug('teleapi:error');
+debug.error.color = 1;
+
+debug.http = debug('teleapi:api');
+debug.http.color = 2;
+
+debug.api = debug('teleapi:api');
+debug.api.color = 3;
 
 /**
  * Variables
@@ -109,6 +119,25 @@ function normalize(obj) {
 }
 
 /**
+ * Custom Errors
+ * @public
+ */
+class APIError extends Error {
+    constructor(method, params, response) {
+        super();
+
+        this.name = 'APIError';
+        this.method = method;
+        this.params = params;
+
+        this.message = response.description;
+        this.timeout = response.retry_after || null;
+        this.migrate = response.migrate_to_chat_id || null;
+        this.code = response.error_code;
+    }
+}
+
+/**
  * Implementation
  * @public
  */
@@ -124,7 +153,7 @@ class API {
         this.version = api.version;
         this.token = token;
 
-        debug(`version: ${api.version}`);
+        debug.api('version: %s', this.version);
 
         this.generator(api.methods);
     }
@@ -139,33 +168,30 @@ class API {
      * @return {Promise}
      */
     method(method, params = {}, callback = null) {
-        let options = {};
-        let form = null;
+        const options = { json: true };
+        const form = normalize(params);
         const url = `${API_URL}${this.token}/${method}`;
 
-        form = normalize(params);
-        options = { body: form, json: true };
-
-        if (form.getHeaders) {
-            debug('multipart/form-data');
-            options.headers = form.getHeaders();
-        }
+        if (form.getHeaders) options.headers = form.getHeaders();
+        options.body = form;
 
         return new Promise((resolve, reject) => {
+            debug.http('use %s with params: %O', method, params);
             got(url, options).then((res) => {
-                const error = (res.body.ok) ? null : new Error(res.body.description);
+                debug.http('%s is it responded: %O', method, res.body.result);
 
-                debug('response: %O', res.body.result);
-
-                if (callback) callback(error, res.body.result);
-
-                if (error) reject(error);
+                if (callback) callback(null, res.body.result);
                 else resolve(res.body.result);
             }).catch((error) => {
-                debug(`error ${error.message}`);
+                let result = error;
 
-                if (callback) callback(error, null);
-                reject(error);
+                if (error.name === 'HTTPError') {
+                    result = new APIError(method, params, error.response.body);
+                    debug.error('%s(%s) %s', result.name, result.method, result.message);
+                }
+
+                if (callback) callback(result, null);
+                else reject(result);
             });
         });
     }
@@ -178,8 +204,11 @@ class API {
      */
     generator(list) {
         list.forEach((item) => {
-            debug(`generate ${item}`);
-            this[item] = (params, callback) => this.method(item, params, callback);
+            debug.api('%s is added', item);
+            this[item] = (params, callback) => {
+                const result = this.method(item, params, callback);
+                return result;
+            };
         });
     }
 
