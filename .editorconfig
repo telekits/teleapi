@@ -13,4 +13,3 @@ trim_trailing_whitespace = false
 
 [{package}.json]
 indent_size = 2
-indent_style = space
