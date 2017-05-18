@@ -6,7 +6,7 @@ const test = require('ava');
 const token = process.env.TOKEN;
 
 /** Tests */
-test.before('`TOKEN` must be is defined!', (t) => {
+test.before('`TOKEN` must be is defined in ENV!', (t) => {
     t.truthy(token);
 });
 
