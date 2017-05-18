@@ -45,7 +45,7 @@ const API_DEFAULT = require('./api.json');
  * Checks whether an Object is multipart/form-data
  * @private
  *
- * @param  {Object} obj
+ * @param  {Object} obj - An object with form-data
  * @return {Boolean}
  */
 function isFormData(obj) {
@@ -57,10 +57,10 @@ function isFormData(obj) {
 }
 
 /**
- * Normalize Object to sending in body
+ * Normalizes an object to sending into the request body
  * @private
  *
- * @param  {Object} obj
+ * @param  {Object} obj - An object with data for sending
  * @return {Object|form-data}
  */
 function normalize(obj) {
@@ -143,11 +143,11 @@ class APIError extends Error {
  */
 class API {
     /**
-     * Create a new telekit
+     * Create instance of the TeleAPI
      * @public
      *
-     * @param  {String} token - Token of Tekegran Bot API
-     * @param  {Object} custom - Custom API
+     * @param {String} token - Token of Telegram Bot API
+     * @param {Object} custom - An object with Custom API fields
      */
     constructor(token = '', api = API_DEFAULT) {
         this.version = api.version;
@@ -162,8 +162,8 @@ class API {
      * Send request to Telegram Bot API
      * @private
      *
-     * @param  {String} method - method name
-     * @param  {Object} params - body in request
+     * @param  {String} method - Method name
+     * @param  {Object} params - Body of the request
      * @param  {Function} callback - (error, response)=>{...}
      * @return {Promise}
      */
@@ -199,7 +199,7 @@ class API {
     /**
      * The generate bound methods from `String` Array
      *
-     * @param {Array} list - string array of methods
+     * @param {Array} list - An array of Strings with method names
      * @private
      */
     generator(list) {
@@ -213,10 +213,10 @@ class API {
     }
 
     /**
-     * Get file from Telegram Bot API
+     * Get file from the Telegram Bot API
      * @public
      *
-     * @param  {String} id - file id
+     * @param  {String} id - ID of the cached file
      * @return {Stream}
      */
     getFile(id) {
@@ -225,7 +225,10 @@ class API {
 }
 
 /** Exports */
-module.exports = (token, custom) => {
+module.exports = Object.assign({
+    version: API_DEFAULT.version,
+    methods: API_DEFAULT.methods,
+}, (token, custom) => {
     if (token) return new API(token, custom);
     return API;
-};
+});
