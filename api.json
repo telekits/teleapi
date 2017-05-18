@@ -1,8 +1,12 @@
 {
-    "version": "2.3.1",
+    "version": "3.0.0",
     "methods": [
         "answerCallbackQuery",
         "answerInlineQuery",
+        "answerPreCheckoutQuery",
+        "answerShippingQuery",
+        "deleteMessage",
+        "deleteWebhook",
         "editMessageCaption",
         "editMessageReplyMarkup",
         "editMessageText",
@@ -23,16 +27,17 @@
         "sendContact",
         "sendDocument",
         "sendGame",
+        "sendInvoice",
         "sendLocation",
         "sendMessage",
         "sendPhoto",
         "sendSticker",
         "sendVenue",
         "sendVideo",
+        "sendVideoNote",
         "sendVoice",
         "setGameScore",
         "setWebhook",
-        "deleteWebhook",
         "unbanChatMember"
     ]
 }
