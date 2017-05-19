@@ -10,12 +10,12 @@ test.before('`TOKEN` must be is defined in ENV!', (t) => {
     t.truthy(token);
 });
 
-test('Should be created a new instance', (t) => {
+test('Should be created new an instance of the teleapi', (t) => {
     const api = teleapi(token);
     t.truthy(api);
 });
 
-test('Should be created a new instance with custom methods', (t) => {
+test('Should be created new an instance of the teleapi with custom api', (t) => {
     const api = teleapi(token, {
         version: '1.0-custom',
         methods: [
@@ -35,10 +35,10 @@ test('Should throw an error', (t) => {
     });
 });
 
-test('Should get description of bot', (t) => {
+test('Should get description of the bot', (t) => {
     const api = teleapi(token);
     return api.getMe().then((data) => {
-        if (data.id && data.first_name && data.username) {
+        if (data.id && data.username) {
             t.pass();
         } else {
             t.fail();

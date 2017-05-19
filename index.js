@@ -42,7 +42,7 @@ const API_DEFAULT = require('./api.json');
  */
 
 /**
- * Checks whether an Object is multipart/form-data
+ * Checks whether an object is multipart/form-data
  * @private
  *
  * @param  {Object} obj - An object with form-data
@@ -57,7 +57,7 @@ function isFormData(obj) {
 }
 
 /**
- * Normalizes an object to sending into the request body
+ * Normalizes an object to sending into body of the request
  * @private
  *
  * @param  {Object} obj - An object with data for sending
@@ -143,11 +143,11 @@ class APIError extends Error {
  */
 class API {
     /**
-     * Create instance of the TeleAPI
+     * Create an instance of the teleapi
      * @public
      *
-     * @param {String} token - Token of Telegram Bot API
-     * @param {Object} custom - An object with Custom API fields
+     * @param {String} token - Token of the bot
+     * @param {Object} custom - An object with Custom API
      */
     constructor(token = '', api = API_DEFAULT) {
         this.version = api.version;
@@ -159,56 +159,49 @@ class API {
     }
 
     /**
-     * Send request to Telegram Bot API
+     * Send the request to Telegram Bot API
      * @private
      *
-     * @param  {String} method - Method name
+     * @param  {String} name - Name of the method
      * @param  {Object} params - Body of the request
-     * @param  {Function} callback - (error, response)=>{...}
      * @return {Promise}
      */
-    method(method, params = {}, callback = null) {
+    method(name, params = {}) {
         const options = { json: true };
         const form = normalize(params);
-        const url = `${API_URL}${this.token}/${method}`;
+        const url = `${API_URL}${this.token}/${name}`;
 
         if (form.getHeaders) options.headers = form.getHeaders();
         options.body = form;
 
         return new Promise((resolve, reject) => {
-            debug.http('use %s with params: %O', method, params);
+            debug.http('use %s with params: %O', name, params);
             got(url, options).then((res) => {
-                debug.http('%s is it responded: %O', method, res.body.result);
-
-                if (callback) callback(null, res.body.result);
-                else resolve(res.body.result);
+                debug.http('%s is it responded: %O', name, res.body.result);
+                resolve(res.body.result);
             }).catch((error) => {
                 let result = error;
 
                 if (error.name === 'HTTPError') {
-                    result = new APIError(method, params, error.response.body);
+                    result = new APIError(name, params, error.response.body);
                     debug.error('%s(%s) %s', result.name, result.method, result.message);
                 }
 
-                if (callback) callback(result, null);
-                else reject(result);
+                reject(result);
             });
         });
     }
 
     /**
-     * The generate bound methods from `String` Array
+     * Generates a wrapped methods from an Array of String
      *
-     * @param {Array} list - An array of Strings with method names
+     * @param {Array} list - An Array of String with method names
      * @private
      */
     generator(list) {
         list.forEach((item) => {
             debug.api('%s is added', item);
-            this[item] = (params, callback) => {
-                const result = this.method(item, params, callback);
-                return result;
-            };
+            this[item] = params => this.method(item, params);
         });
     }
 
@@ -216,7 +209,7 @@ class API {
      * Get file from the Telegram Bot API
      * @public
      *
-     * @param  {String} id - ID of the cached file
+     * @param  {String} id - File ID
      * @return {Stream}
      */
     getFile(id) {
