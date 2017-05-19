@@ -13,10 +13,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nof1000/teleapi.git"
+    "url": "git+https://github.com/telekits/teleapi.git"
   },
   "bugs": {
-    "url": "https://github.com/nof1000/teleapi/issues"
+    "url": "https://github.com/telekits/teleapi/issues"
   },
   "keywords": [
     "framework",
