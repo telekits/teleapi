@@ -1,127 +1,221 @@
-# TeleAPI
-> The useful library to simplify your work with Telegram Bot API
+<p align="center">
+    <a href="#what-is-it" alt="teleapi">
+        <img src=".github/header.png" alt="Header image"/>
+    </a>
+</p>
 
-> Supported of Telegram Bot API 2.3.1!
+<p align="center">
+    <a href="https://github.com/telekits/telekit">telekit</a>
+    <strong>&emsp;&bull;&emsp;</strong>
+    <strong>teleapi</strong>
+</p>
 
-```javascript
-const teleapi = require('teleapi');
-const api = teleapi('Bot Auth Token');
+> Now support the Telegram Bot API 3.0.0 with Payment Platform.  
+> [See more about Payment Platform](https://core.telegram.org/bots/payments "Bot Payments API")
 
-/** or */
 
-const api = require('teleapi')('Bot Auth Token');
+## What is it?
+This is useful library to simplify your work with the Telegram Bot API
+> Before you start, please, read an introduction for developers.  
+> [Just a moment, I'll read it.](https://core.telegram.org/bots "Bots: an introduction for developers")
 
-/** ...and send requests... */
-```
-### [Bot API manual](https://core.telegram.org/bots/api "Telegram Bot API")
 
 ## Install
-```npm
+npm
+```console
 $ npm install teleapi --save
 ```
 
-## Available Types
-> [Current list of Available Types](https://core.telegram.org/bots/api#available-types "Telegram Bot API Available Types")
-
-## Available Methods
-> [Current list of Available Methods](https://github.com/nof1000/teleapi/blob/master/api.json "api.json")
-
-
-```javascript
-const api = require('teleapi')('Bot Auth Token');
-
-api.methodName(params, callback);
+yarn
+```console
+$ yarn add teleapi
 ```
 
-**`params` is an `Object`**
+
+## How it use?
+Elementary!
+Look at the next example that show you how to send request to `getMe` method:
 ```javascript
-/** example params for sendMessage */
-const params = {
-  chat_id: 000000, // Unique identifier for the message recipient — User or GroupChat id
-  text: 'hello!' // Text of the message to be sent
-}
-```
-**`callback` is an `Function`**
-```javascript
-function callback(error, result) {
-  /** ... */
-}
-```
-**`methodName` returns a `Promise`**
-```javascript
-api.methodName(params).then(result => {
-  /** ... */
-}).catch(error => {
-  /** ... */ 
+/** First be we've required the teleapi */
+const teleapi = require('teleapi');
+
+/**
+ * Next we need a get an instance of the teleapi.
+ * Also, we should set the bot token.
+ */
+const api = teleapi('telegram_bot_token');
+
+/**
+ * And now we can send requests to the Telegram Bot API;
+ * This method returns info about the bot to us.
+ *
+ * (`getMe` method is available in the Telegram Bot API).
+ */
+api.getMe().then((response) => {
+    /** Bot ID */
+    console.log('id:', response.id);
+    /** and username of the our bot */
+    console.log('username:', response.username);
+
+    /**
+     * And also first name and last name and lang code.
+     * See about it below.
+     */
+}).catch((error) => {
+    /** Something is wrong! */
+    console.log(error);
 });
 ```
+> If you want to see available methods and types:  
+> [Please, have a look at here first.](https://core.telegram.org/bots/api#available-types "Telegram Bot API")
 
-## Request
+
+## API
+#### `teleapi(token, [api]);`
+ * `token:String` - Token of the Bot that you can get from the BotFather
+ * `api:Object` - **(optional)** An Object with Custom API(see [api.json](./api.json "Default API"))  
+ * Returns: `api` - An instance of the teleapi.
+
+Creates an new instance of the teleapi with your token of the bot.  
+
+
+#### `teleapi.version:String`
+A contain of the current API version.  
+
+
+#### `teleapi.methods:Array`
+A contain an Array of String with all available methods.  
+
+
+#### `api.getFile(id);`
+ * `id:String` - File ID
+ * Returns: `Stream` - A stream with file data 
+
+Get file from the Telegram.  
+
+
+#### `api.method(name, [params]);`
+ * `name:String` - Name of the method that available in the Telegram Bot API
+ * `params:Object` - **(optional)** An Object with body params for the request
+ * Returns: `Promise` with response in `then`
+
+This method send request to the Telegram Bot API;  
+It's private method but you can use it.  
+
+
+#### `api.<method>(params);`
+ * `params:Object` - An Object with body params for the request
+ * Returns: `Promise` with response in `then`
+
+The `<method>` is one of the available methods from Telegram Bot API.  
+
+> See all available methods [here](https://core.telegram.org/bots/api#available-methods "Telegram Bot API").
+
+
+## Examples
+
+**Send text message to chat**
 ```javascript
-const api = require('teleapi')('Bot Auth Token');
+const teleapi = require('teleapi');
 
-api.getMe(callback);
-/** or */
-api.getMe().then(result => {
-  /** ... */
-}).catch(error => {
-  /** ... */
-});
+const api = teleapi('telegram_bot_token');
 
-/** Example of Send Message */
+/** Send request with chat and text message */
 api.sendMessage({
-  chat_id: 000000, // chat id
-  text: "Hello!"
-}).then(result => {
-  /** ... */
-}).catch(error => {
-  /** ... */
+    chat_id: 0000,
+    text: 'Hello!', 
 });
 ```
 
-## Get File
+
+**Save file from the Telegram**
 ```javascript
-const api = require('teleapi')('Bot Auth Token');
+const teleapi = require('teleapi');
+
+const api = teleapi('telegram_bot_token');
+
+/** Send request with file id */
+api.getFile('file_id').pipe(fs.createWriteStream('image.png'));
+```
+
+
+**Send sticker(file_id)**
+```javascript
+const teleapi = require('teleapi');
+
+const api = teleapi('telegram_bot_token');
+
+/** Send request where `sticker` is a file id */
+api.sendSticker({
+   chat_id: 0000,
+   sticker: 'file_id', 
+});
+```
+
+
+**Send document(stream.Readable)**
+```javascript
+const teleapi = require('teleapi');
 const fs = require('fs');
 
-/** returns Stream */
-api.getFile('file_id').pipe(fs.createWriteStream('file.ext'));
+const api = teleapi('telegram_bot_token');
+
+/** Send request where `document` is stream.Readable */
+api.sendDocument({
+   chat_id: 0000,
+   document: fs.readFile('book_from_tpb.pdf'), 
+});
 ```
 
-## Send File
-> photo, audio, document, sticker, video, etc...
 
+**Send photo(URL)**
 ```javascript
-const api = require('teleapi')('Bot Auth Token');
+const teleapi = require('teleapi');
 
-/** Support Stream */
-const fs = require('fs');
-const data = fs.createReadStream('myfile.ext');
+const api = teleapi('telegram_bot_token');
 
-/** Support Buffer */
-const data = new Buffer([1, 2, 3]);
-
-/** Support String(file_id) */
-const data = "file_id";
-
-api.sendDocument({
-  chat_id: 000000, // chat id
-  document: data
+/** Send request where `photo` is an URL */
+api.sendPhoto({
+   chat_id: 0000,
+   photo: 'https://upload.wikimedia.org/wikipedia/commons/d/d9/Test.png', 
 });
-
-/** or */
-
-api.sendDocument({
-  chat_id: 000000, // chat id
-  document: {
-    filename: 'myfile.jpg',
-      value: data,
-      mime: "image/jpg"
-    }
-  }
-});
-
 ```
+
+**Send voice(Buffer)**
+```javascript
+const teleapi = require('teleapi');
+
+const api = teleapi('telegram_bot_token');
+
+/** Send request where `voice` is a Buffer */
+api.sendVoice({
+   chat_id: 0000,
+   voice: new Buffer([1, 2, 3]), 
+});
+```
+
+
+**Send document(strict)**
+```javascript
+const teleapi = require('teleapi');
+const fs = require('fs');
+
+const api = teleapi('telegram_bot_token');
+
+/** Send request where 'document' is an Object with strict data */
+api.sendDocument({
+    chat_id: 000000,
+    document: {
+        filename: 'photo.png',
+        value: fs.readFile('family_photo.dat'),
+        mime: 'image/png',
+    },
+});
+```
+
+
+> A more is coming soon.
+
 
 ## LICENSE
-[MIT](./LICENSE "The MIT License")
+[MIT](./LICENSE "The MIT License") © [https://github.com/nof1000](Denis Maslennikov "Author")
