@@ -218,4 +218,4 @@ api.sendDocument({
 
 
 ## LICENSE
-[MIT](./LICENSE "The MIT License") © [https://github.com/nof1000](Denis Maslennikov "Author")
+[MIT](./LICENSE "The MIT License") © [Denis Maslennikov](https://github.com/nof1000 "Author")
