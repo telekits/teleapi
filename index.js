@@ -218,10 +218,10 @@ class API {
 }
 
 /** Exports */
-module.exports = Object.assign({
-    version: API_DEFAULT.version,
-    methods: API_DEFAULT.methods,
-}, (token, custom) => {
+module.exports = Object.assign((token, custom) => {
     if (token) return new API(token, custom);
     return API;
+}, {
+    version: API_DEFAULT.version,
+    methods: API_DEFAULT.methods,
 });
