@@ -1,15 +1,17 @@
 {
-    "version": "3.0.0",
+    "version": "3.1.0",
     "methods": [
         "answerCallbackQuery",
         "answerInlineQuery",
         "answerPreCheckoutQuery",
         "answerShippingQuery",
+        "deleteChatPhoto",
         "deleteMessage",
         "deleteWebhook",
         "editMessageCaption",
         "editMessageReplyMarkup",
         "editMessageText",
+        "exportChatInviteLink",
         "forwardMessage",
         "getChat",
         "getChatAdministrators",
@@ -22,6 +24,9 @@
         "getWebhookInfo",
         "kickChatMember",
         "leaveChat",
+        "pinChatMessage",
+        "promoteChatMember",
+        "restrictChatMember",
         "sendAudio",
         "sendChatAction",
         "sendContact",
@@ -36,8 +41,12 @@
         "sendVideo",
         "sendVideoNote",
         "sendVoice",
+        "setChatDescription",
+        "setChatPhoto",
+        "setChatTitle",
         "setGameScore",
         "setWebhook",
-        "unbanChatMember"
+        "unbanChatMember",
+        "unpinChatMessage"
     ]
 }
