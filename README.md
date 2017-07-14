@@ -10,8 +10,8 @@
     <strong>teleapi</strong>
 </p>
 
-> Now support the Telegram Bot API 3.0.0 with Payment Platform.  
-> [See more about Payment Platform](https://core.telegram.org/bots/payments "Bot Payments API")
+
+> Now support the Telegram Bot API 3.1 with Robotic Police Force.
 
 
 ## What is it?
