@@ -1,12 +1,15 @@
 {
-    "version": "3.1.0",
+    "version": "3.2.0",
     "methods": [
+        "addStickerToSet",
         "answerCallbackQuery",
         "answerInlineQuery",
         "answerPreCheckoutQuery",
         "answerShippingQuery",
+        "createNewStickerSet",
         "deleteChatPhoto",
         "deleteMessage",
+        "deleteStickerFromSet",
         "deleteWebhook",
         "editMessageCaption",
         "editMessageReplyMarkup",
@@ -19,6 +22,7 @@
         "getChatMembersCount",
         "getGameHighScores",
         "getMe",
+        "getStickerSet",
         "getUpdates",
         "getUserProfilePhotos",
         "getWebhookInfo",
@@ -45,8 +49,10 @@
         "setChatPhoto",
         "setChatTitle",
         "setGameScore",
+        "setStickerPositionInSet",
         "setWebhook",
         "unbanChatMember",
-        "unpinChatMessage"
+        "unpinChatMessage",
+        "uploadStickerFile"
     ]
 }
