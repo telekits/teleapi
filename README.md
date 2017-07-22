@@ -11,7 +11,7 @@
 </p>
 
 
-> Now support the Telegram Bot API 3.1 with Robotic Police Force.
+> Now support the Telegram Bot API 3.2 with Sticker Sets.
 
 
 ## What is it?
