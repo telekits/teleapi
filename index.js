@@ -171,24 +171,26 @@ class API {
         const form = normalize(params);
         const url = `${API_URL}${this.token}/${name}`;
 
-        if (form.getHeaders) options.headers = form.getHeaders();
+        if (form.getHeaders) {
+            options.headers = form.getHeaders();
+        }
+
         options.body = form;
 
-        return new Promise((resolve, reject) => {
-            debug.http('use %s with params: %O', name, params);
-            got(url, options).then((res) => {
-                debug.http('%s is it responded: %O', name, res.body.result);
-                resolve(res.body.result);
-            }).catch((error) => {
-                let result = error;
+        debug.http('use %s with params: %O', name, params);
+        return got(url, options).then((response) => {
+            debug.http('%s is it responded: %O', name, response.body.result);
+            return response.body.result;
+        }).catch((error) => {
+            let buffer = error;
 
-                if (error.name === 'HTTPError') {
-                    result = new APIError(name, params, error.response.body);
-                    debug.error('%s(%s) %s', result.name, result.method, result.message);
-                }
+            // hook
+            if (buffer.name === 'HTTPError' && buffer.response.body) {
+                buffer = new APIError(name, params, buffer.response.body);
+                debug.error('%s(%s) %s', buffer.name, buffer.method, buffer.message);
+            }
 
-                reject(result);
-            });
+            throw buffer;
         });
     }
 
