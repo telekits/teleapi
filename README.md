@@ -11,6 +11,13 @@
 </p>
 
 
+[![Build Status](https://travis-ci.org/telekits/teleapi.svg?branch=master)](https://travis-ci.org/telekits/teleapi)
+[![npm](https://img.shields.io/npm/v/teleapi.svg)](https://www.npmjs.com/package/teleapi)
+[![npm](https://img.shields.io/npm/dt/teleapi.svg)](https://www.npmjs.com/package/teleapi)
+[![Airbnb code style](https://img.shields.io/badge/code_style-Airbnb-ff69b4.svg)](https://github.com/sindresorhus/xo)
+[![license](https://img.shields.io/github/license/telekits/teleapi.svg)](./LICENSE)
+
+
 > Now support the Telegram Bot API 3.2 with Sticker Sets.
 
 
