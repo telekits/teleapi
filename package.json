@@ -1,15 +1,15 @@
 {
   "name": "teleapi",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "The useful library to simplify your work with Telegram Bot API",
   "main": "index.js",
   "author": "Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)",
   "license": "MIT",
   "homepage": "https://telekits.org.js",
   "scripts": {
-    "test": "npm run test:eslint -s && npm run test:ava -s",
-    "test:eslint": "eslint index.js",
-    "test:ava": "ava test.js"
+    "test": "npm run lint -s && npm run ava -s",
+    "lint": "eslint index.js",
+    "ava": "ava test.js"
   },
   "repository": {
     "type": "git",
