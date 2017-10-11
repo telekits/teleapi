@@ -1,5 +1,5 @@
 {
-    "version": "3.2.0",
+    "version": "3.4.0",
     "methods": [
         "addStickerToSet",
         "answerCallbackQuery",
@@ -8,10 +8,12 @@
         "answerShippingQuery",
         "createNewStickerSet",
         "deleteChatPhoto",
+        "deleteChatStickerSet",
         "deleteMessage",
         "deleteStickerFromSet",
         "deleteWebhook",
         "editMessageCaption",
+        "editMessageLiveLocation",
         "editMessageReplyMarkup",
         "editMessageText",
         "exportChatInviteLink",
@@ -47,10 +49,12 @@
         "sendVoice",
         "setChatDescription",
         "setChatPhoto",
+        "setChatStickerSet",
         "setChatTitle",
         "setGameScore",
         "setStickerPositionInSet",
         "setWebhook",
+        "stopMessageLiveLocation",
         "unbanChatMember",
         "unpinChatMessage",
         "uploadStickerFile"
