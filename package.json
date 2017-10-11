@@ -7,9 +7,9 @@
   "license": "MIT",
   "homepage": "https://telekits.org.js",
   "scripts": {
-    "test": "npm run lint -s && npm run ava -s",
-    "lint": "eslint index.js",
-    "ava": "ava test.js"
+    "test": "npm run lint -s && npm run mocha -s",
+    "mocha": "mocha test.js",
+    "lint": "eslint index.js"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,6 @@
     "wrapper",
     "helpful",
     "useful",
-    "useful",
     "tools",
     "bot",
     "api"
@@ -38,9 +37,9 @@
     "got": "^7.1.0"
   },
   "devDependencies": {
-    "ava": "^0.22.0",
     "eslint": "^4.8.0",
     "eslint-config-airbnb-base": "^12.0.2",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "mocha": "^4.0.1"
   }
 }
