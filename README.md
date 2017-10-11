@@ -18,7 +18,7 @@
 [![license](https://img.shields.io/github/license/telekits/teleapi.svg)](./LICENSE)
 
 
-> Now support the Telegram Bot API 3.2 with Sticker Sets.
+> Now support the Telegram Bot API 3.4 with Live Locations.
 
 
 ## What is it?
