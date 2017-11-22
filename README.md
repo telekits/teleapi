@@ -18,7 +18,7 @@
 [![license](https://img.shields.io/github/license/telekits/teleapi.svg)](./LICENSE)
 
 
-> Now support the Telegram Bot API 3.4 with Live Locations.
+> Now support the Telegram Bot API 3.5 with the new [albums feature](https://telegram.org/blog/albums-saved-messages "Albums, Saved Messages and Better Search").
 
 
 ## What is it?
