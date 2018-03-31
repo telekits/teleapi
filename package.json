@@ -1,6 +1,6 @@
 {
   "name": "teleapi",
-  "version": "3.5.0",
+  "version": "3.6.0",
   "description": "The useful library to simplify your work with Telegram Bot API",
   "main": "index.js",
   "author": "Denis Maslennikov <mrdenniska@gmail.com> (nofach.co)",
