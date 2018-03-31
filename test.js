@@ -1,9 +1,4 @@
-/**
- * A contain the testing of teleapi.
- *
- * @author Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)
- * @license MIT
- */
+// eslint-disable
 
 /** Dependencies */
 const { randomBytes } = require('crypto');
