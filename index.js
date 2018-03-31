@@ -2,7 +2,7 @@
  * The useful library to simplify your work with Telegram Bot API
  *
  * @module telekit
- * @author Denis Maslennikov <mrdenniska@gmail.com> (nofach.com)
+ * @author Denis Maslennikov <mrdenniska@gmail.com> (nofach.co)
  * @license MIT
  */
 
