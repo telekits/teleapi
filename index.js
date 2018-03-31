@@ -150,6 +150,7 @@ class API {
      * @param {Object} custom - An object with Custom API
      */
     constructor(token = '', api = API_DEFAULT) {
+        this.methods = api.methods;
         this.version = api.version;
         this.token = token;
 
